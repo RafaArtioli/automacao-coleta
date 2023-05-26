@@ -120,7 +120,7 @@ class Teste:
 
 def main():
     teste = Teste()
-    teste.get_url(URL_FEDEX)
+    teste.get_url(URL)
     time.sleep(1)
 
     df = pd.read_csv('base.csv', sep=";", on_bad_lines='skip')
