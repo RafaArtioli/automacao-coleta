@@ -9,7 +9,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.select import Select
 import pandas as pd
 import time
-from url_fedex import URL_FEDEX
+
 
 class Fedex:
 
