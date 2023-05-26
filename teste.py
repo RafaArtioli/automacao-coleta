@@ -11,7 +11,7 @@ import pandas as pd
 import time
 
 
-class Fedex:
+class Teste:
 
     def __init__(self):
         options = webdriver.ChromeOptions()
@@ -119,8 +119,8 @@ class Fedex:
             print(e)
 
 def main():
-    fedex = Fedex()
-    fedex.get_url(URL_FEDEX)
+    teste = Teste()
+    teste.get_url(URL_FEDEX)
     time.sleep(1)
 
     df = pd.read_csv('base.csv', sep=";", on_bad_lines='skip')
@@ -130,14 +130,14 @@ def main():
     result_df = pd.DataFrame(columns=['Nota Fiscal', 'CNPJ','Data prevista', 'Status entrega', 'Data entrega'])
 
     for notaf, cnpjj in zip(notafiscal, cnpj):
-        fedex.tipo_cliente()
-        fedex.pesquisar_cnpj(cnpjj)
-        fedex.tipo_documento()
-        fedex.num_documento(notaf)
-        fedex.buscar_botao()
+        teste.tipo_cliente()
+        teste.pesquisar_cnpj(cnpjj)
+        teste.tipo_documento()
+        teste.num_documento(notaf)
+        teste.buscar_botao()
         time.sleep(1)
 
-        erro = fedex.teste_registro()
+        erro = teste.teste_registro()
         dados = {'Nota Fiscal': notaf, 'CNPJ': cnpjj}
         if erro:
             result_df = result_df._append({**dados, 'Data prevista': 'Nenhum registro encontrado.', 'Status entrega': '', 'Data entrega': ''},
@@ -152,9 +152,9 @@ def main():
                 continue
 
             time.sleep(1)
-            data, _, status_ent, _, data_ent = fedex.texto_nf()
+            data, _, status_ent, _, data_ent = teste.texto_nf()
             time.sleep(0.5)
-            fedex.voltar_botao()
+            teste.voltar_botao()
             time.sleep(1.5)
 
             result_df = result_df._append({**dados, 'Data prevista': data, 'Status entrega': data_ent, 'Data entrega': status_ent},
@@ -162,6 +162,6 @@ def main():
         
 
     result_df.to_csv('resultado.csv', sep=';', encoding='utf-8-sig', index=False)
-    fedex._driver.quit()
+    teste._driver.quit()
 
 main()
